@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="tp2p2.Views.CreerSeriePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:tp2p2.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <RelativePanel
+        Padding="20"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <StackPanel Width="400" Spacing="10">
+
+            <TextBlock
+                FontSize="16"
+                Foreground="White"
+                Text="Titre" />
+            <TextBox x:Name="TitreTextBox" Height="30" />
+
+            <TextBlock
+                FontSize="16"
+                Foreground="White"
+                Text="Résumé" />
+            <TextBox
+                x:Name="ResumeTextBox"
+                Height="80"
+                AcceptsReturn="True"
+                TextWrapping="Wrap" />
+
+            <TextBlock
+                FontSize="16"
+                Foreground="White"
+                Text="Nb Saisons" />
+            <TextBox
+                x:Name="NbSaisonsTextBox"
+                Height="30"
+                InputScope="Number" />
+
+            <TextBlock
+                FontSize="16"
+                Foreground="White"
+                Text="Nb Épisodes" />
+            <TextBox
+                x:Name="NbEpisodesTextBox"
+                Height="30"
+                InputScope="Number" />
+
+            <TextBlock
+                FontSize="16"
+                Foreground="White"
+                Text="Année création" />
+            <TextBox
+                x:Name="AnneeCreationTextBox"
+                Height="30"
+                InputScope="Number" />
+
+            <TextBlock
+                FontSize="16"
+                Foreground="White"
+                Text="Chaîne" />
+            <TextBox x:Name="ChaineTextBox" Height="30" />
+
+            <Button
+                Height="40"
+                Background="Gray"
+                Command="{Binding BtnAjt}"
+                Content="Ajouter"
+                Foreground="White" />
+
+        </StackPanel>
+    </RelativePanel>
+</Page>
