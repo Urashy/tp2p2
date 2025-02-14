@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using tp2p2.Models;
-using System.Collections.ObjectModel;
-using tp2p2.Services;
-using Microsoft.UI.Xaml.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using tp2p2.Models;
+using tp2p2.Services;
 
 namespace tp2p2.ViewModels
 {
-    public class CreerSerieViewModel : ObservableObject
+    public class RechercherSerieViewModel : ObservableObject
     {
         private ObservableCollection<Serie> _series;
 
@@ -29,42 +32,44 @@ namespace tp2p2.ViewModels
 
 
         private Serie serieToAdd;
-public Serie SerieToAdd
-{
-    get => serieToAdd;
-    set
-    {
-        if (serieToAdd != value)
+        public Serie SerieToAdd
         {
-            serieToAdd = value;
+            get => serieToAdd;
+            set
+            {
+                if (serieToAdd != value)
+                {
+                    serieToAdd = value;
 
-            OnPropertyChanged(nameof(SerieToAdd));
+                    OnPropertyChanged(nameof(SerieToAdd));
+                }
+            }
         }
-    }
-}
 
 
 
-        public IRelayCommand BtnAjt { get; }
+        public IRelayCommand BtnRchr { get; }
+        public IRelayCommand BtnModif { get; }
+        public IRelayCommand BtnSuppr { get; }
 
 
-        public CreerSerieViewModel()
+        public RechercherSerieViewModel()
         {
 
             GetDataOnLoadAsync();
             serieToAdd = new Serie();
-            BtnAjt = new RelayCommand(ActionSetConversion);
+            BtnRchr = new RelayCommand(ActionSetConversion);
+            BtnModif = new RelayCommand(ActionSetConversionmodif);
+            BtnSuppr = new RelayCommand(ActionSetConversionsuppr);
         }
 
-
-        
-
-        private async void ActionSetConversion()
+        private async void ActionSetConversionmodif()
         {
-            if (serieToAdd.Titre == null || serieToAdd.Titre == "") 
+            if (serieToAdd.Titre == null || serieToAdd.Titre == "")
             {
                 MessageAsync("Erreur", "Le titre est mal renseigné");
-            }else if(serieToAdd.Resume == null || serieToAdd.Resume == "")
+            }
+            else if (serieToAdd.Resume == null || serieToAdd.Resume == "")
             {
                 MessageAsync("Erreur", "Le resumé est mal renseigné");
             }
@@ -89,7 +94,7 @@ public Serie SerieToAdd
 
 
                 WSService service = new WSService("http://localhost:5087/api/");
-                bool result = await service.PutSerieAsync("Series",serieToAdd);
+                bool result = await service.PutSerieAsync("Series", serieToAdd);
                 if (result)
                 {
                     MessageAsync("Succès", "Série crée avec succès");
@@ -99,6 +104,45 @@ public Serie SerieToAdd
                 {
                     MessageAsync("Erreur", "L'ajout de la série a échoué");
                 }
+            }
+        }
+
+        private async void ActionSetConversionsuppr()
+        {
+            if (serieToAdd.SerieId <= 0)
+            {
+                MessageAsync("Erreur", "Veuillez d'abord sélectionner une série");
+                return;
+            }
+
+            WSService service = new WSService("http://localhost:5087/api/");
+            bool result = await service.DeleteSerieAsync("Series", serieToAdd.SerieId);
+
+            if (result)
+            {
+                MessageAsync("Succès", "Série supprimée avec succès");
+                SerieToAdd = new Serie(); 
+            }
+            else
+            {
+                MessageAsync("Erreur", "La suppression de la série a échoué");
+            }
+        }
+
+
+        private async void ActionSetConversion()
+        {
+            WSService service = new WSService("http://localhost:5087/api/");
+            Serie serie = await service.GetSerieAsync("Series", serieToAdd.SerieId);
+
+            if (serie != null)
+            {
+                Console.WriteLine(serie.Titre);
+                SerieToAdd = serie;
+            }
+            else
+            {
+                MessageAsync("Erreur", "La série n'a pas été trouvée");
             }
         }
 
@@ -136,16 +180,12 @@ public Serie SerieToAdd
             {
                 Series = new ObservableCollection<Serie>(result);
                 Console.WriteLine("Donnée récupérées depuis l'api");
-                foreach (Serie serie in result) 
+                foreach (Serie serie in result)
                 {
                     Console.WriteLine(serie.Titre);
                 }
                 Console.WriteLine("--------------------------------");
             }
         }
-
-
-
-
     }
 }

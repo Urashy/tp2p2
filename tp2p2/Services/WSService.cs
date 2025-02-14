@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using tp2p2.Models;
 using Windows.Web.Http;
 using System.Net.Http.Json;
+using System.Windows.Media.Animation;
 
 namespace tp2p2.Services
 {
@@ -25,7 +26,7 @@ namespace tp2p2.Services
             );
         }
 
-        public async Task<List<Serie>> GetDevisesAsync(string nomControleur)
+        public async Task<List<Serie>> GetSeriesAsync(string nomControleur)
         {
             try
             {
@@ -38,6 +39,50 @@ namespace tp2p2.Services
                 return null;
             }
         }
+
+        public async Task<Serie> GetSerieAsync(string nomControleur, int serieid)
+        {
+            try
+            {
+                return await httpClient.GetFromJsonAsync<Serie>($"{nomControleur}/{serieid}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<bool> PutSerieAsync(string nomControleur, Serie serie)
+        {
+            try
+            {
+                var response = await httpClient.PostAsJsonAsync(nomControleur, serie);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteSerieAsync(string nomControleur, int serieid)
+        {
+            try
+            {
+                var response = await httpClient.DeleteAsync($"{nomControleur}/{serieid}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+
+
     }
 
 }

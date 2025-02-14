@@ -9,6 +9,6 @@ namespace tp2p2.Services
 {
     internal interface IService
     {
-        Task<List<Serie>> GetDevisesAsync(string nomControleur);
+        Task<List<Serie>> GetSeriesAsync(string nomControleur);
     }
 }

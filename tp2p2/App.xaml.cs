@@ -44,7 +44,7 @@ namespace tp2p2
             ServiceCollection services = new ServiceCollection();
 
             services.AddTransient<CreerSerieViewModel>();
-
+            services.AddTransient<RechercherSerieViewModel>();  // Ajout de cette ligne
             Services = services.BuildServiceProvider();
         }
 
@@ -62,7 +62,7 @@ namespace tp2p2
             this.m_window.Content = rootframe;
             MainRoot = m_window.Content as FrameworkElement;
             m_window.Activate();
-            rootframe.Navigate(typeof(CreerSeriePage));
+            rootframe.Navigate(typeof(RechercherSeriePage));
 
         }
 

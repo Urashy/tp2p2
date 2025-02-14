@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="tp2p2.Views.RechercherSeriePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:tp2p2.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <RelativePanel
+            MinHeight="800"
+            Padding="20"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <StackPanel Width="400" Spacing="15">
+                <TextBlock
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Numéro de Série" />
+                <TextBox
+                    x:Name="idTextBox"
+                    Height="35"
+                    Text="{Binding SerieToAdd.SerieId, Mode=TwoWay}" />
+                <Button
+                    Height="45"
+                    Background="Gray"
+                    Command="{Binding BtnRchr}"
+                    Content="Rechercher"
+                    Foreground="White" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Titre" />
+                <TextBox
+                    x:Name="TitreTextBox"
+                    Height="35"
+                    Text="{Binding SerieToAdd.Titre, Mode=TwoWay}" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Résumé" />
+                <TextBox
+                    x:Name="ResumeTextBox"
+                    Height="100"
+                    AcceptsReturn="True"
+                    Text="{Binding SerieToAdd.Resume, Mode=TwoWay}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Nb Saisons" />
+                <TextBox
+                    x:Name="NbSaisonsTextBox"
+                    Height="35"
+                    InputScope="Number"
+                    Text="{Binding SerieToAdd.NbSaisons, Mode=TwoWay}" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Nb Épisodes" />
+                <TextBox
+                    x:Name="NbEpisodesTextBox"
+                    Height="35"
+                    InputScope="Number"
+                    Text="{Binding SerieToAdd.NbEpisodes, Mode=TwoWay}" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Année création" />
+                <TextBox
+                    x:Name="AnneeCreationTextBox"
+                    Height="35"
+                    InputScope="Number"
+                    Text="{Binding SerieToAdd.AnneeCreation, Mode=TwoWay}" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="White"
+                    Text="Chaîne" />
+                <TextBox
+                    x:Name="ChaineTextBox"
+                    Height="35"
+                    Text="{Binding SerieToAdd.Network, Mode=TwoWay}" />
+                <Button
+                    Height="45"
+                    Background="Gray"
+                    Command="{Binding BtnModif}"
+                    Content="Modifier"
+                    Foreground="White" />
+                <Button
+                    Height="45"
+                    Background="Gray"
+                    Command="{Binding BtnSuppr}"
+                    Content="Supprimer"
+                    Foreground="White" />
+            </StackPanel>
+        </RelativePanel>
+    </ScrollViewer>
+</Page>
