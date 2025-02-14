@@ -9,6 +9,7 @@ using tp2p2.Models;
 using Windows.Web.Http;
 using System.Net.Http.Json;
 using System.Windows.Media.Animation;
+using System.Text.Json;
 
 namespace tp2p2.Services
 {
@@ -72,6 +73,21 @@ namespace tp2p2.Services
             try
             {
                 var response = await httpClient.DeleteAsync($"{nomControleur}/{serieid}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateSerieAsync(string nomControleur, Serie serie)
+        {
+            try
+            {
+                var jsonContent = new StringContent(JsonSerializer.Serialize(serie), Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync($"{nomControleur}/{serie.SerieId}", jsonContent);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)

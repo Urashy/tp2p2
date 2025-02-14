@@ -91,18 +91,16 @@ namespace tp2p2.ViewModels
             }
             else
             {
-
-
                 WSService service = new WSService("http://localhost:5087/api/");
-                bool result = await service.PutSerieAsync("Series", serieToAdd);
+                bool result = await service.UpdateSerieAsync("Series", serieToAdd);
                 if (result)
                 {
-                    MessageAsync("Succès", "Série crée avec succès");
-                    GetDataOnLoadAsync();
+                    MessageAsync("Succès", "Série modifiée avec succès");
+                    serieToAdd = new Serie();
                 }
                 else
                 {
-                    MessageAsync("Erreur", "L'ajout de la série a échoué");
+                    MessageAsync("Erreur", "La modification de la série a échoué");
                 }
             }
         }
@@ -137,7 +135,6 @@ namespace tp2p2.ViewModels
 
             if (serie != null)
             {
-                Console.WriteLine(serie.Titre);
                 SerieToAdd = serie;
             }
             else

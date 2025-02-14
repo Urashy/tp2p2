@@ -94,6 +94,12 @@
                     Command="{Binding BtnSuppr}"
                     Content="Supprimer"
                     Foreground="White" />
+                <Button
+                    Height="45"
+                    Background="Gray"
+                    Click="Button_Click"
+                    Content="Page ajouter une série"
+                    Foreground="White" />
             </StackPanel>
         </RelativePanel>
     </ScrollViewer>

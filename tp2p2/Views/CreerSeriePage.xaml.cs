@@ -31,6 +31,11 @@ namespace tp2p2.Views
             this.InitializeComponent();
             this.DataContext = App.Current.Services.GetService<CreerSerieViewModel>();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(RechercherSeriePage));
+        }
     }
 
 }

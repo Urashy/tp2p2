@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Navigation;
 using tp2p2.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -29,6 +30,11 @@ namespace tp2p2.Views
         {
             this.InitializeComponent();
             this.DataContext = App.Current.Services.GetService<RechercherSerieViewModel>();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CreerSeriePage));
         }
     }
 }
